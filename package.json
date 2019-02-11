@@ -13,7 +13,7 @@
   "author": "Chad Michael <chad@medlor.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "4.15.0"
+    "eslint": "^5.13.0"
   },
   "dependencies": {
     "express": "4.16.2"
