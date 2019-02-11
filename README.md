@@ -15,9 +15,9 @@ The reason for the project was to deal with scenarios in an SPA (e.g. reactjs) w
 
 If you'd like to customize this project and create your own build, edit the code and...
 
-```sh
-docker build -t default-backend .
+```
 docker build -t chadicus/medlor-default-backend .
+docker push chadicus/medlor-default-backend
 ```
 
 ## Run
