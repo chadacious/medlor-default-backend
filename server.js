@@ -15,7 +15,14 @@ app.get('/', (req, res) => {
   try {
     // handle the case where the path contains specific parts that are used for partitioning to different backend services
     const baseUrl = req.headers['x-original-uri'];
-    const checkBackend = baseUrl.split('/')[0];
+    const baseUrlParts = baseUrl.split('/');
+    let checkBackend = baseUrl;
+    if (baseUrlParts.length > 1) {
+      checkBackend = baseUrlParts[0] === '' ? baseUrlParts[1] : baseUrlParts[0];
+    }
+    if (DEBUG === 'true') {
+      console.log('check baseUrl:', checkBackend);
+    }
     if (['signup', 'startmedling'].includes(checkBackend)) {
       redirectPath = 'https://' + req.headers.host + '/' + checkBackend + '?redirectTo=' + baseUrl;
     } else {
