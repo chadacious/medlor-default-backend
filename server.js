@@ -24,9 +24,9 @@ app.get('/', (req, res) => {
       console.log('check baseUrl:', checkBackend);
     }
     if (['signup', 'startmedling'].includes(checkBackend)) {
-      redirectPath = 'https://' + req.headers.host + '/' + checkBackend + '?redirectTo=' + baseUrl;
+      redirectPath = 'https://' + req.headers.host + '/' + checkBackend + '?redirectTo=' + encodeURIComponent(baseUrl);
     } else {
-      redirectPath = 'https://' + req.headers.host + '?redirectTo=' + baseUrl;
+      redirectPath = 'https://' + req.headers.host + '?redirectTo=' + encodeURIComponent(baseUrl);
     }
   } catch (error) {
     console.log(error);
