@@ -23,11 +23,12 @@ app.get('/', (req, res) => {
     if (DEBUG === 'true') {
       console.log('check baseUrl:', checkBackend);
     }
-    if (['signup', 'startmedling'].includes(checkBackend)) {
-      redirectPath = 'https://' + req.headers.host + '/' + checkBackend + '?redirectTo=' + encodeURIComponent(baseUrl);
+    if (['signup', 'startmedling', 'sirs'].includes(checkBackend)) {
+      redirectPath = 'https://' + req.headers.host + '/' + checkBackend;
     } else {
-      redirectPath = 'https://' + req.headers.host + '?redirectTo=' + encodeURIComponent(baseUrl);
+      redirectPath = 'https://' + req.headers.host;
     }
+    redirectPath += checkBackend.indexOf('?redirectTo=') === -1 ? '?redirectTo='  + encodeURIComponent(baseUrl) : '';
   } catch (error) {
     console.log(error);
     redirectPath = '?redirectTo=/404';
