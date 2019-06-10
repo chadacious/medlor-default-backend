@@ -16,26 +16,20 @@ app.get('/', (req, res) => {
     // handle the case where the path contains specific parts that are used for partitioning to different backend services
     const baseUrl = req.headers['x-original-uri'];
     // if we are already redirecting, then don't continue
-    if (baseUrl.indexOf('?redirectTo=')) {
-      if (DEBUG === 'true') {
-        throw new Error(`Aborting: Already redirecting to: ${baseUrl}`);
-      }
-    } else {
-      const baseUrlParts = baseUrl.split('/');
-      let checkBackend = baseUrl;
-      if (baseUrlParts.length > 1) {
-        checkBackend = baseUrlParts[0] === '' ? baseUrlParts[1] : baseUrlParts[0];
-      }
-      if (DEBUG === 'true') {
-        console.log('check baseUrl:', checkBackend);
-      }
-      if (['signup', 'startmedling', 'sirs'].includes(checkBackend)) {
-        redirectPath = 'https://' + req.headers.host + '/' + checkBackend;
-      } else {
-        redirectPath = 'https://' + req.headers.host;
-      }
-      redirectPath += '?redirectTo=' + encodeURIComponent(baseUrl);
+    const baseUrlParts = baseUrl.split('/');
+    let checkBackend = baseUrl;
+    if (baseUrlParts.length > 1) {
+      checkBackend = baseUrlParts[0] === '' ? baseUrlParts[1] : baseUrlParts[0];
     }
+    if (DEBUG === 'true') {
+      console.log('check baseUrl:', checkBackend);
+    }
+    if (['signup', 'startmedling', 'sirs'].includes(checkBackend)) {
+      redirectPath = 'https://' + req.headers.host + '/' + checkBackend;
+    } else {
+      redirectPath = 'https://' + req.headers.host;
+    }
+    redirectPath += checkBackend.indexOf('?redirectTo=') === -1 ? '?redirectTo='  + encodeURIComponent(baseUrl) : '';
   } catch (error) {
     if (DEBUG === 'true') {
       console.log(error);
