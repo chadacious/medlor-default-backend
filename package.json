@@ -1,6 +1,6 @@
 {
   "name": "medlor-default-backend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A default backend (404 page) for nginx-ingress in Kubernetes",
   "repository": {
     "type": "git",
